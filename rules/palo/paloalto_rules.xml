@@ -1,0 +1,48 @@
+<group name="palo,config-changes,">
+
+  <!-- Specific rules -->
+  <!-- Config -->
+  <!-- Parent rule 64500 is from the Wazuh Palo Alto decoder (paloalto.xml) -->
+  <rule id="100501" level="0">
+    <if_sid>64500</if_sid>
+    <field name="type">^CONFIG$</field>
+    <description>Palo Alto Config: config changes detected.</description>
+  </rule>
+  
+  <rule id="100502" level="10">
+    <if_sid>100501</if_sid>
+    <field name="command">commit-and-push</field>
+    <description>Palo Alto Config: commit-and-push detected = on $(client) by $(admin)</description>
+  </rule>
+  
+  <rule id="100503" level="10">
+    <if_sid>100501</if_sid>
+    <field name="command">set</field>
+    <description>Palo Alto Config: set detected = on $(client) by $(admin) on $(configuration_path)</description>
+  </rule>
+  
+  <rule id="100504" level="10">
+    <if_sid>100501</if_sid>
+    <field name="command">edit</field>
+    <description>Palo Alto Config: edit detected = on $(client) by $(admin) on $(configuration_path)</description>
+  </rule>
+  
+  <rule id="100505" level="10">
+    <if_sid>100501</if_sid>
+    <field name="command">delete</field>
+    <description>Palo Alto Config: delete detected = on $(client) by $(admin) on $(configuration_path)</description>
+  </rule>
+  
+  <rule id="100506" level="10">
+    <if_sid>100501</if_sid>
+    <field name="command">rename</field>
+    <description>Palo Alto Config: rename detected = on $(client) by $(admin) on $(configuration_path)</description>
+  </rule>
+  
+  <rule id="100507" level="10">
+    <if_sid>100501</if_sid>
+    <field name="command">move</field>
+    <description>Palo Alto Config: move detected = on $(client) by $(admin) on $(configuration_path)</description>
+  </rule>
+
+</group>
