@@ -5,7 +5,7 @@
   Requires the passwork_decoder-v2.xml decoder to be installed.
   (Alternatively passwork_decoder.xml can be used for backward compatibility)
   
-  The v2 decoder uses program_name matching (php-fpm) for more precise log identification.
+  The decoder uses program_name matching (php-fpm) for more precise log identification.
   
   CEF Format Structure:
   CEF:Version|Device Vendor|Device Product|Device Version|Signature ID|Name|Severity|Extension
