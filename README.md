@@ -27,7 +27,7 @@ systemctl restart wazuh-manager
 
 ### 🔐 Passwork Password Manager  
 **Decoders:** CEF format parser with program_name matching (php-fpm)  
-**Rules:** 173 monitoring rules (IDs 100700-100972) — full event coverage for Passwork 7.7.0
+**Rules:** 173 monitoring rules (IDs 100700-100972) — 168 event rules covering every documented Passwork 7.7.0 event, plus 1 base rule and 4 correlation rules
 
 Monitors 15 categories:
 - Password operations (view, create, edit, delete, copy, share, export, offline)

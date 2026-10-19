@@ -6,7 +6,16 @@ Covers all **168 documented action history events** of Passwork **7.7.0**.
 
 ## Files
 
-- `passwork_rules.xml` - 173 rules (IDs 100700-100972)
+- `passwork_rules.xml` - **173 rules** (IDs 100700-100972)
+
+The two numbers describe different things:
+
+| | Count |
+|---|---|
+| Event rules (exactly one per documented Passwork event) | 168 |
+| Base rule `100700` (level 0, parent for all others) | 1 |
+| Correlation rules (`100818`, `100970`-`100972`) | 4 |
+| **Total rules in the file** | **173** |
 
 ## Requirements
 
