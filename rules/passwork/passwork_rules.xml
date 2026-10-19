@@ -13,7 +13,8 @@
   Reference: https://passwork.pro/tech-guides/administration/action-history/syslog-and-eventviewer/
   Events: https://passwork.pro/tech-guides/administration/action-history/action-history-events-list/
   
-  Rule ID Range: 100700 - 100960
+  Rule ID Range: 100700 - 100979
+  Event coverage: Passwork 7.7.0 (all 168 documented action history events)
 -->
 
 <group name="passwork_rules,">
@@ -182,6 +183,36 @@
     <group>passwork_shortcut,</group>
   </rule>
 
+  <!-- Offline item actions - introduced in Passwork 7.7.0 -->
+
+  <rule id="100723" level="3">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^item_viewed_offline$</field>
+    <description>Passwork: Password opened offline by $(srcuser).</description>
+    <group>passwork_password,data_access,passwork_offline,</group>
+  </rule>
+
+  <rule id="100724" level="6">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^offlineItem_created$</field>
+    <description>Passwork: Password saved offline to device by $(srcuser) - Secret leaves the server.</description>
+    <group>passwork_password,data_access,passwork_offline,</group>
+  </rule>
+
+  <rule id="100725" level="5">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^offlineItem_synced$</field>
+    <description>Passwork: Offline password synchronized by $(srcuser).</description>
+    <group>passwork_password,passwork_offline,</group>
+  </rule>
+
+  <rule id="100726" level="3">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^offlineItem_removed$</field>
+    <description>Passwork: Offline password removed from device by $(srcuser).</description>
+    <group>passwork_password,passwork_offline,</group>
+  </rule>
+
   <!-- ============================================ -->
   <!-- Shortcut Actions (100730 - 100749)          -->
   <!-- ============================================ -->
@@ -261,6 +292,15 @@
     <field name="passwork.event_code">^shortcut_item_deleted$</field>
     <description>Passwork: Initial shortcut password deleted by $(srcuser).</description>
     <group>passwork_shortcut,</group>
+  </rule>
+
+  <!-- Offline shortcut action - introduced in Passwork 7.7.0 -->
+
+  <rule id="100741" level="3">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^shortcut_viewed_offline$</field>
+    <description>Passwork: Shortcut viewed offline by $(srcuser).</description>
+    <group>passwork_shortcut,data_access,passwork_offline,</group>
   </rule>
 
   <!-- ============================================ -->
@@ -647,6 +687,86 @@
     <group>passwork_user_account,authentication_failed,attack,</group>
   </rule>
 
+  <!-- Passkey / WebAuthn and master password actions -->
+  <!-- introduced in Passwork 7.3.0 - 7.6.1 -->
+
+  <rule id="100819" level="3">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^user_email_confirmed$</field>
+    <description>Passwork: Email confirmed by $(srcuser).</description>
+    <group>passwork_user_account,</group>
+  </rule>
+
+  <rule id="100820" level="5">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^user_master_key_changed$</field>
+    <description>Passwork: Master password changed by $(srcuser).</description>
+    <group>passwork_user_account,authentication,</group>
+  </rule>
+
+  <rule id="100821" level="7">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^user_passkey_added$</field>
+    <description>Passwork: Passkey added by $(srcuser) - New authentication factor registered.</description>
+    <group>passwork_user_account,authentication,passwork_passkey,</group>
+  </rule>
+
+  <rule id="100822" level="5">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^user_passkey_deleted$</field>
+    <description>Passwork: Passkey deleted by $(srcuser).</description>
+    <group>passwork_user_account,authentication,passwork_passkey,</group>
+  </rule>
+
+  <rule id="100823" level="5">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^user_passkey_auth_enabled$</field>
+    <description>Passwork: Passkey authentication enabled by $(srcuser).</description>
+    <group>passwork_user_account,authentication,passwork_passkey,</group>
+  </rule>
+
+  <rule id="100824" level="7">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^user_passkey_auth_disabled$</field>
+    <description>Passwork: Passkey authentication disabled by $(srcuser) - Security risk.</description>
+    <group>passwork_user_account,authentication,passwork_passkey,security_warning,</group>
+  </rule>
+
+  <rule id="100825" level="5">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^user_webauthn_2fa_added$</field>
+    <description>Passwork: 2FA biometrics or security key added by $(srcuser).</description>
+    <group>passwork_user_account,authentication,passwork_webauthn,</group>
+  </rule>
+
+  <rule id="100826" level="7">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^user_webauthn_2fa_deleted$</field>
+    <description>Passwork: 2FA biometrics or security key deleted by $(srcuser) - Security risk.</description>
+    <group>passwork_user_account,authentication,passwork_webauthn,security_warning,</group>
+  </rule>
+
+  <rule id="100827" level="3">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^user_webauthn_2fa_enabled$</field>
+    <description>Passwork: 2FA with biometrics or security key enabled by $(srcuser).</description>
+    <group>passwork_user_account,authentication,passwork_webauthn,</group>
+  </rule>
+
+  <rule id="100828" level="7">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^user_webauthn_2fa_disabled$</field>
+    <description>Passwork: 2FA with biometrics or security key disabled by $(srcuser) - Security risk.</description>
+    <group>passwork_user_account,authentication,passwork_webauthn,security_warning,</group>
+  </rule>
+
+  <rule id="100829" level="5">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^user_auth_check_failed$</field>
+    <description>Passwork: Failed attempt to unlock authentication settings by $(srcuser) from $(srcip).</description>
+    <group>passwork_user_account,authentication_failed,</group>
+  </rule>
+
   <!-- ============================================ -->
   <!-- User Management Actions (100830 - 100859)   -->
   <!-- ============================================ -->
@@ -782,6 +902,44 @@
     <field name="passwork.event_code">^user_emergency_2fa_reset$</field>
     <description>Passwork: Emergency 2FA reset by $(srcuser).</description>
     <group>passwork_user_management,authentication,</group>
+  </rule>
+
+  <!-- Admin resets, service accounts and LDAP group restriction -->
+  <!-- introduced in Passwork 7.3.0 - 7.7.0 -->
+
+  <rule id="100849" level="10">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^user_master_key_reset$</field>
+    <description>Passwork: User master password reset by $(srcuser).</description>
+    <group>passwork_user_management,authentication,</group>
+  </rule>
+
+  <rule id="100850" level="8">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^user_passkey_reset$</field>
+    <description>Passwork: User passkey reset by admin $(srcuser).</description>
+    <group>passwork_user_management,authentication,passwork_passkey,</group>
+  </rule>
+
+  <rule id="100851" level="8">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^service_account_api_tokens_generated$</field>
+    <description>Passwork: Service account API token generated by $(srcuser) - Long-lived credential created.</description>
+    <group>passwork_user_management,api,passwork_service_account,</group>
+  </rule>
+
+  <rule id="100852" level="5">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^service_account_api_tokens_revoked$</field>
+    <description>Passwork: Service account API token revoked by $(srcuser).</description>
+    <group>passwork_user_management,api,passwork_service_account,</group>
+  </rule>
+
+  <rule id="100853" level="7">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^user_auth_failed_ldap_group_restriction$</field>
+    <description>Passwork: Sign-in denied by LDAP group restriction for $(srcuser) from $(srcip).</description>
+    <group>passwork_user_management,authentication_failed,ldap,</group>
   </rule>
 
   <!-- ============================================ -->
@@ -1112,6 +1270,41 @@
     <field name="passwork.event_code">^activityLogSettings_changed$</field>
     <description>Passwork: Activity log settings changed by $(srcuser).</description>
     <group>passwork_activity_log,configuration_change,</group>
+  </rule>
+
+  <rule id="100961" level="3">
+    <if_sid>100700</if_sid>
+    <field name="passwork.event_code">^test_event_sent$</field>
+    <description>Passwork: Test event sent by $(srcuser) - Log pipeline verification.</description>
+    <group>passwork_activity_log,</group>
+  </rule>
+
+  <!-- ============================================ -->
+  <!-- Correlation Rules (100970 - 100979)         -->
+  <!-- ============================================ -->
+
+  <!-- Bulk offline storage of passwords - possible exfiltration to an endpoint -->
+  <rule id="100970" level="10" frequency="10" timeframe="300">
+    <if_matched_sid>100724</if_matched_sid>
+    <same_srcuser />
+    <description>Passwork: Mass offline save of passwords by $(srcuser) - Possible data exfiltration to endpoint.</description>
+    <group>passwork_password,data_export,passwork_offline,attack,</group>
+  </rule>
+
+  <!-- Repeated sign-ins with valid credentials but without LDAP group authorization -->
+  <rule id="100971" level="10" frequency="5" timeframe="300">
+    <if_matched_sid>100853</if_matched_sid>
+    <same_source_ip />
+    <description>Passwork: Repeated sign-in attempts denied by LDAP group restriction from $(srcip).</description>
+    <group>passwork_user_management,authentication_failed,ldap,attack,</group>
+  </rule>
+
+  <!-- Repeated failed attempts to unlock the Authentication settings page -->
+  <rule id="100972" level="10" frequency="5" timeframe="300">
+    <if_matched_sid>100829</if_matched_sid>
+    <same_srcuser />
+    <description>Passwork: Repeated failed attempts to unlock authentication settings by $(srcuser) - Possible session hijack.</description>
+    <group>passwork_user_account,authentication_failed,attack,</group>
   </rule>
 
 </group>

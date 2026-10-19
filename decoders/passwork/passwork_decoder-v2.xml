@@ -63,6 +63,38 @@
 </decoder>
 
 <!--
+  Extension field decoder for destination user ID (duid) - Passwork native field
+  "ID of the user on whom the action was performed"
+  Format: 24-character alphanumeric ID
+  Relevant for all admin actions on foreign accounts: user_password_reset,
+  user_master_key_reset, user_passkey_reset, user_2fa_reset_by_admin,
+  service_account_api_tokens_generated, ...
+-->
+<decoder name="passwork">
+  <parent>passwork</parent>
+  <regex type="pcre2">duid=([a-zA-Z0-9]{24})</regex>
+  <order>passwork.duid</order>
+</decoder>
+
+<!--
+  Device / client type (web | desktop | browser addon | mobile | api | internal)
+  as documented in the Passwork "Event forwarding overview".
+
+  The position of this value within the CEF header is not specified in the
+  documentation. This decoder only matches when the device value sits in the
+  Device Product field (position 3) - otherwise it simply does not fire.
+  Verify against a real log line with wazuh-logtest before relying on it.
+
+  Note: if the device value does sit there, passwork.product already carries
+  the same value and this decoder is a correctly named alias for it.
+-->
+<decoder name="passwork">
+  <parent>passwork</parent>
+  <regex type="pcre2">CEF:\d+\|Passwork\|(web|desktop|browser addon|mobile|api|internal)\|</regex>
+  <order>passwork.device</order>
+</decoder>
+
+<!--
   Extension field decoder for outcome/result
 -->
 <decoder name="passwork">
