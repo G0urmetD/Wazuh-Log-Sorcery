@@ -112,7 +112,8 @@ Initial release.
 
 ### Added
 
-- Passwork CEF decoder (`decoders/passwork/passwork_decoder-v2.xml`) using
+- Passwork CEF decoder (`decoders/passwork/passwork_decoder.xml`, originally
+  `passwork_decoder-v2.xml`) using
   `program_name` matching on `php-fpm`, with 30 extension field decoders.
 - Passwork ruleset (`rules/passwork/passwork_rules.xml`) with 146 event rules and
   one brute force correlation rule, covering the full Passwork 7.2.x event list.
