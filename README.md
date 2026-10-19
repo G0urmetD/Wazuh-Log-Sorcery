@@ -51,7 +51,7 @@ CHANGELOG.md
 
 decoders/
 └── passwork/
-    └── passwork_decoder-v2.xml
+    └── passwork_decoder.xml
 
 rules/
 ├── palo/
